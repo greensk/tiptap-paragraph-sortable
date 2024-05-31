@@ -10,7 +10,7 @@ export const EmrParagraph = Paragraph.extend({
       HTMLAttributes: {}
     };
   },
-
+  draggable: true,
   group: "block",
   content: "inline*",
   renderHTML({ node, HTMLAttributes }) {
