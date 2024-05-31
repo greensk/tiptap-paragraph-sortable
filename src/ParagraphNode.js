@@ -1,5 +1,8 @@
 import { mergeAttributes } from "@tiptap/core";
 import { Paragraph } from "@tiptap/extension-paragraph";
+import { ReactNodeViewRenderer } from '@tiptap/react'
+
+import Component from './ParagraphView'
 
 export const EmrParagraph = Paragraph.extend({
   addOptions() {
@@ -23,5 +26,10 @@ export const EmrParagraph = Paragraph.extend({
     return {
       "Mod-Alt-0": () => this.editor.commands.setParagraph()
     };
-  }
+  },
+
+  addNodeView() {
+    return ReactNodeViewRenderer(Component, { contentDOMElementTag: 'span' })
+  },
+
 });
