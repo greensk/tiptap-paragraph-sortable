@@ -2,6 +2,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { EmrParagraph } from './ParagraphNode'
 import { MyDoc } from './DocumentNode'
+import { Page } from './PageNode'
 
 const formats = ['A4', 'A3', 'Infinite']
 
@@ -13,9 +14,10 @@ const Tiptap = () => {
         paragraph: false
       }),
       MyDoc,
-      EmrParagraph
+      EmrParagraph,
+      Page
     ],
-    content: "<p>Hello World! 🌎️</p>",
+    content: "<div class='page'><p>Hello World! 🌎️</p></div>",
     onUpdate ({ editor }) {
       console.log(editor.getJSON().attrs.format)
     }
