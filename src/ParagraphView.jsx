@@ -3,18 +3,22 @@ import React from 'react'
 
 import './ParagraphView.css'
 
-export default () => {
+export default (props) => {
   return (
-    <NodeViewWrapper className="paragraph-view" as="p">
+    <NodeViewWrapper
+      className="paragraph-view flex"
+      as="p"
+      data-id={ props.node.attrs.id }
+    >
       <i
         className="drag-handle"
-        contentEditable={false}
         draggable="true"
-        data-drag-handle  
+        data-drag-handle
+        contentEditable={false}
       ></i>
-      <span>
+      <div class="flex-1">
         <NodeViewContent as="span"></NodeViewContent>
-      </span>
+      </div>
     </NodeViewWrapper>
   )
 }

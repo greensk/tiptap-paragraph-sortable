@@ -19,7 +19,7 @@ export const EmrParagraph = Paragraph.extend({
       // @ts-ignore
       node.attrs.id = HTMLAttributes.id;
     }
-    return ["p", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+    return ["p", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { class: 'paragraph-view' }), 0];
   },
 
   addKeyboardShortcuts() {
@@ -27,9 +27,7 @@ export const EmrParagraph = Paragraph.extend({
       "Mod-Alt-0": () => this.editor.commands.setParagraph()
     };
   },
-
   addNodeView() {
     return ReactNodeViewRenderer(Component, { contentDOMElementTag: 'span' })
   },
-
 });
