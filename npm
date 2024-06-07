@@ -1,0 +1,11 @@
+#!/bin/sh
+docker run -ti --rm \
+    --network host \
+    -v "$(pwd):/var/www" \
+    -v "/home/green/.ssh:/root/.ssh" \
+    -v "/home/green/.npmrc:/root/.npmrc" \
+    -e 'NODE_OPTIONS=--max-old-space-size=4096' \
+    -e 'ASSET_URL=/shadcn-new-york/' \
+    -w /var/www \
+    --user $UID:$UID \
+	node:20 npm "$@"
