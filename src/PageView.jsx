@@ -6,7 +6,7 @@ import './PageView.css'
 export default (props) => {
   return (
     <NodeViewWrapper
-      className="page-view"
+      className={`page-view ${props.editor.state.doc.attrs.format}`}
       as="div"
       data-id={ props.node.attrs.id }
     >

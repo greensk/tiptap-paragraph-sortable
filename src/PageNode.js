@@ -8,12 +8,19 @@ export const Page = Node.create({
   group: "block",
   content: "block*",
   renderHTML({ node, HTMLAttributes }) {
-    if (HTMLAttributes.id) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      node.attrs.id = HTMLAttributes.id;
+    let theClass = 'page'
+    if (this.editor.view) {
+      theClass += ' ' + this.editor.state.doc.attrs.format
     }
-    return ["div", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { class: 'page' }), 0];
+    return [
+      "div",
+      mergeAttributes(
+        this.options.HTMLAttributes,
+        HTMLAttributes,
+        { class: theClass }
+      ),
+      0
+    ];
   },
 
   parseHTML() {

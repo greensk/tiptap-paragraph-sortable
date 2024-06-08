@@ -6,8 +6,8 @@ import './ParagraphView.css'
 export default (props) => {
   return (
     <NodeViewWrapper
-      className="paragraph-view flex"
-      as="p"
+      className={`paragraph-view flex` }
+      as="div"
       data-id={ props.node.attrs.id }
     >
       <i
@@ -16,9 +16,9 @@ export default (props) => {
         data-drag-handle
         contentEditable={false}
       ></i>
-      <div class="flex-1">
+      <p className="flex-1">
         <NodeViewContent as="span"></NodeViewContent>
-      </div>
+      </p>
     </NodeViewWrapper>
   )
 }

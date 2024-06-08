@@ -17,15 +17,11 @@ const Tiptap = () => {
       EmrParagraph,
       Page
     ],
-    content: "<div class='page'><p>Hello World! 🌎️</p></div>",
-    onUpdate ({ editor }) {
-      console.log(editor.getJSON().attrs.format)
-    }
+    content: "<div class='page'><p>Hello World! 🌎️</p></div>"
   });
 
   const setFormat = (format) => {
     editor.commands.setDocumentFormat(format)
-    console.log(editor.getJSON())
   }
 
   return <div>
