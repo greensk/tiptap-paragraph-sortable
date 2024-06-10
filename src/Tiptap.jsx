@@ -18,10 +18,23 @@ const Tiptap = () => {
       Page
     ],
     content: "<div class='page'><p>Hello World! 🌎️</p></div>",
-    onUpdate () {
+    onUpdate ({ transaction }) {
       const docDom = document.querySelector('.page-view')
       if (docDom.scrollHeight > docDom.offsetHeight || docDom.scrollWidth > docDom.offsetWidth) {
         this.commands.changePages(1)
+      } else if(!transaction.steps.find(s => s.jsonID === 'docAttr' && s.attr === 'pages')) {
+        let latestOffset = 0
+        let pages = 0
+        document.querySelectorAll('.ProseMirror .paragraph-view').forEach((el) => {
+          const rect = el.getBoundingClientRect()
+          if (rect.left > latestOffset) {
+            latestOffset = rect.left
+            pages++
+          }
+        })
+        if (pages > 0 && pages < +editor.state.doc.attrs.pages) {
+          this.commands.setPages(pages)
+        }
       }
     }
   });

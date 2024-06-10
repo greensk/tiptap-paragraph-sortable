@@ -21,6 +21,14 @@ export const MyDoc = Document.extend({
           return true
         }
       },
+      setPages: (pages) => ({ tr, dispatch, editor, state, commands }) => {
+        const t = tr.setDocAttribute('pages', pages.toString())
+        if (dispatch) {
+          return dispatch(t)
+        } else {
+          return true
+        }
+      }
     }
   },
   addAttributes () {

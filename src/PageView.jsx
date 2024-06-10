@@ -13,8 +13,7 @@ export default (props) => {
       as="div"
       style={
         {
-          'columns-count': Number(props.editor.state.doc.attrs.pages),
-          'column-width': `${format.width}px`,
+          columnWidth: `${format.width}px`,
           width: String(Number(props.editor.state.doc.attrs.pages) * (format.width + 22) ) + 'px',
           ...(format.height !== null ? { height: `${format.height}px` } : {})
         }
