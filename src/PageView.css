@@ -8,6 +8,7 @@
   padding: 10px;
   column-gap: 2em;
   column-rule: 1px solid #ccc;
+  column-fill: auto;
 }
 
 .page-view.A4 {

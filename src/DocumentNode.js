@@ -1,6 +1,7 @@
 import { Document } from '@tiptap/extension-document'
 
 export const MyDoc = Document.extend({
+  content: 'page+',
   addCommands () {
     return {
       setDocumentFormat: (format) => ({ tr, dispatch, editor, state, commands }) => {
