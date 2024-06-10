@@ -8,6 +8,12 @@ export default (props) => {
     <NodeViewWrapper
       className={`page-view ${props.editor.state.doc.attrs.format}`}
       as="div"
+      style={
+        {
+          'columnsCount': Number(props.editor.state.doc.attrs.pages),
+          width: String(Number(props.editor.state.doc.attrs.pages) * 300 ) + 'px'
+        }
+      }
       data-id={ props.node.attrs.id }
     >
       <NodeViewContent as="div"></NodeViewContent>

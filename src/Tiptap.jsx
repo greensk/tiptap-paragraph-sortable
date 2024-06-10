@@ -3,6 +3,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { EmrParagraph } from './ParagraphNode'
 import { MyDoc } from './DocumentNode'
 import { Page } from './PageNode'
+import { useEffect } from "react";
 
 const formats = ['A4', 'A3', 'Infinite']
 
@@ -17,7 +18,13 @@ const Tiptap = () => {
       EmrParagraph,
       Page
     ],
-    content: "<div class='page'><p>Hello World! 🌎️</p></div>"
+    content: "<div class='page'><p>Hello World! 🌎️</p></div>",
+    onUpdate () {
+      const docDom = document.querySelector('.page-view')
+      if (docDom.scrollHeight > docDom.offsetHeight || docDom.scrollWidth > docDom.offsetWidth) {
+        this.commands.changePages(1)
+      }
+    }
   });
 
   const setFormat = (format) => {
