@@ -3,9 +3,8 @@ import StarterKit from "@tiptap/starter-kit";
 import { EmrParagraph } from './ParagraphNode'
 import { MyDoc } from './DocumentNode'
 import { Page } from './PageNode'
-import { useEffect } from "react";
 
-const formats = ['A4', 'A3', 'Infinite']
+import formats from './formats'
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -34,7 +33,7 @@ const Tiptap = () => {
   return <div>
     <div className="flex gap-2">
       {
-        formats.map((format) => {
+        Object.keys(formats).map((format) => {
           return <span
             key={ format }
             style={
