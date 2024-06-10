@@ -14,17 +14,3 @@
 .page-view p {
   word-wrap: break-word;
 }
-
-.page-view.A4 {
-  column-width: 300px;
-  height: 300px;
-}
-
-.page-view.A3 {
-  column-width: 400px;
-  height: 400px;
-}
-
-.page-view.Infinite {
-  width: 500px;
-}
