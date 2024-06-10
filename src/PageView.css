@@ -1,19 +1,23 @@
+.ProseMirror:focus-visible {
+  outline: none;
+}
+
 .page-view {
   border: 1px solid gray;
   margin: 10px;
   padding: 10px;
+  column-gap: 2em;
+  column-rule: 1px solid #ccc;
 }
 
 .page-view.A4 {
-  width: 300px;
+  column-width: 300px;
   height: 300px;
-  overflow-y: hidden;
 }
 
 .page-view.A3 {
-  width: 400px;
+  column-width: 400px;
   height: 400px;
-  overflow-y: hidden;
 }
 
 .page-view.Infinite {
