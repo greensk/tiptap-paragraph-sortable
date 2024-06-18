@@ -11,7 +11,7 @@ export default Node.create({
     };
   },
   group: "block",
-  content: "block+",
+  content: "header paragraph{3}",
   renderHTML({ node, HTMLAttributes }) {
     return ["div", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { class: 'page' }), 0];
   },
