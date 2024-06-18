@@ -14,7 +14,7 @@ export default (props) => {
   return (
     <NodeViewWrapper className="page-view" as="div">
       <div>
-        <div>
+        <div contentEditable={ false }>
           <TiptapNested
             content={ content }
           />
