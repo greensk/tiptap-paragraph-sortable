@@ -1,4 +1,7 @@
 import { Node, mergeAttributes } from '@tiptap/core'
+import { ReactNodeViewRenderer } from '@tiptap/react'
+
+import Component from './HeaderView'
 
 export default Node.create({
   name: 'header',
@@ -19,6 +22,10 @@ export default Node.create({
       ),
       0
     ]
-  }
+  },
+
+  addNodeView() {
+    return ReactNodeViewRenderer(Component, { contentDOMElementTag: 'div' })
+  },
 
 })
