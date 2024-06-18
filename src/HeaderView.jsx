@@ -11,11 +11,35 @@ export default (props) => {
       if (!editable) {
         return
       }
-      props.editor.state.doc.forEach((pageNode, offset, pageIndex) => {
-        if (offset + 1 === props.getPos()) {
-          console.log(JSON.stringify(props.editor.getJSON()))
+      let chain = props.editor.chain()
+      let appendOffset = 0
+      let content
+      let contentLength
+      props.editor.state.doc.forEach((pageNode, pageOffset, pageIndex) => {
+        if (pageOffset + 1 === props.getPos()) {
+          pageNode.forEach((subNode, subNodeOffset) => {
+            if (subNode.type.name === 'header') {
+              content = subNode.toJSON().content
+              contentLength = subNode.nodeSize
+            }
+          })
         }
       })
+      props.editor.state.doc.forEach((pageNode, pageOffset, pageIndex) => {
+        if (pageOffset + 1 !== props.getPos()) {
+          pageNode.forEach((subNode, subNodeOffset) => {
+            if (subNode.type.name === 'header') {
+              const from = pageOffset + subNodeOffset + 1 + appendOffset
+              const to = pageOffset + subNodeOffset + subNode.nodeSize - 1 + appendOffset
+              chain = chain.deleteRange({ from, to })
+              chain = chain.insertContentAt(pageOffset + subNodeOffset + 1, content)
+              appendOffset += contentLength - (to - from)
+              console.log({ from, to, content })
+            }
+          })
+        }
+      })
+      chain.run()
     }
 
     props.editor.on('update', handler)
