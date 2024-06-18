@@ -5,8 +5,11 @@ import NestedDocument from './NestedDocument'
 const TiptapNested = (props) => {
   const editor = useEditor({
     extensions: [StarterKit.configure({ document: false }), NestedDocument],
-    content: props.content
-  });
+    content: props.content,
+    onUpdate ({ editor }) {
+      props.updateContent(editor.getJSON().content)
+    }
+  })
 
   return <EditorContent editor={editor} />
 };

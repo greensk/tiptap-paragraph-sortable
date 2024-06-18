@@ -17,6 +17,17 @@ export default (props) => {
         <div contentEditable={ false }>
           <TiptapNested
             content={ content }
+            updateContent={ (content) => {
+              props.editor.state.doc.descendants((node, pos) => {
+                if (node.type.name === 'header') {
+                  props.editor
+                    .chain()
+                    .deleteRange({ from: pos + 1, to: pos + node.nodeSize - 1 })
+                    .insertContentAt(pos + 1, content)
+                    .run()
+                }
+              })
+            } }
           />
         </div>
         <NodeViewContent as="div"></NodeViewContent>
