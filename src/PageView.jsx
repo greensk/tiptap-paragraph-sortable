@@ -1,10 +1,11 @@
 import { NodeViewWrapper, NodeViewContent } from '@tiptap/react'
-import React from 'react'
+import React, { useState } from 'react'
 import TiptapNested from './TiptapNested'
 
 import './PageView.css'
 
 export default (props) => {
+  const [ headerEditing, setHeaderEditing ] = useState(false)
   let content = {}
   props.editor.state.doc.descendants((node) => {
     if (node.type.name === 'header') {
@@ -14,8 +15,17 @@ export default (props) => {
   return (
     <NodeViewWrapper className="page-view" as="div">
       <div>
-        <div contentEditable={ false }>
+        <div
+          contentEditable={ false }
+          onClick={() => {
+            console.log('start editing')
+            if (!headerEditing) {
+              setHeaderEditing(true)
+            }
+          }}
+        >
           <TiptapNested
+            editable={ headerEditing }
             content={ content }
             updateContent={ (content) => {
               props.editor.state.doc.descendants((node, pos) => {
@@ -28,6 +38,9 @@ export default (props) => {
                 }
               })
             } }
+            editingDone={() => {
+              //setHeaderEditing(false)
+            }}
           />
         </div>
         <NodeViewContent as="div"></NodeViewContent>
