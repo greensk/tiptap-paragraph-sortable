@@ -6,7 +6,7 @@ import Header from './Header'
 
 const Tiptap = () => {
   const editor = useEditor({
-    extensions: [StarterKit, Page, Document, Header],
+    extensions: [StarterKit.configure({ document: false }), Page, Document, Header],
     content: `<div class="header">header</div>`,
   });
 

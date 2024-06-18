@@ -15,7 +15,7 @@ export default Node.create({
       mergeAttributes(
         this.options.HTMLAttributes,
         HTMLAttributes,
-        { class: 'header' }
+        { class: 'header', style: 'display: none' }
       ),
       0
     ]
