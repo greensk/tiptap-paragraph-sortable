@@ -8,11 +8,12 @@ export default (props) => {
 
   useEffect(() => {
     const handler = () => {
-      if (!editable) {
-        return
-      }
       const pos = props.getPos()
       const selection = props.editor.state.selection
+
+      if (!editable || pos === null || selection.$cursor === null) {
+        return
+      }
       const focused = selection.$cursor.pos >= pos && selection.$cursor.pos <= pos + props.node.nodeSize
       if (!focused) {
         setEditable(false)
@@ -24,7 +25,7 @@ export default (props) => {
     return () => {
       props.editor.off('selectionUpdate', handler)
     }
-  }, [props.editor, editable])
+  }, [props.editor, editable, props.node])
 
   return (
     <NodeViewWrapper
