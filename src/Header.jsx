@@ -36,6 +36,7 @@ export default Node.create({
         appendTransaction (_, oldState, newState) {
           let modifiedPageIndex = -1
           let modifiedHeaderContent
+          let extraOffset = 0
           oldState.doc.forEach((pageNode, pageOffset, pageIndex) => {
             const oldHeaderContent = JSON.stringify(pageNode.child(0).toJSON())
             const newHeader = newState.doc.child(pageIndex).child(0)
@@ -43,17 +44,22 @@ export default Node.create({
             if (oldHeaderContent !== newHeaderContent) {
               modifiedPageIndex = pageIndex
               modifiedHeaderContent = newHeader.slice(0)
-              console.log(`page ${pageIndex + 1} header modified`)
             }
           })
           if (modifiedPageIndex === -1) {
             return
           }
           const tr = newState.tr
-          console.log('spreading new content', modifiedHeaderContent)
           newState.doc.forEach((pageNode, pageOffset, pageIndex) => {
             if (pageIndex !== modifiedPageIndex) {
-              tr.step(new ReplaceStep(pageOffset + 2, pageOffset + pageNode.child(0).nodeSize, modifiedHeaderContent))
+              tr.step(
+                new ReplaceStep(
+                  pageOffset + 2 + extraOffset,
+                  pageOffset + pageNode.child(0).nodeSize + extraOffset,
+                  modifiedHeaderContent
+                )
+              )
+              extraOffset += modifiedHeaderContent.size + 2 - pageNode.child(0).nodeSize
             }
           })
           return tr
