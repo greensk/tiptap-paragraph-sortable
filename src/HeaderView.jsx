@@ -11,6 +11,7 @@ export default (props) => {
       if (!editable) {
         return
       }
+      /*
       let chain = props.editor.chain()
       let appendOffset = 0
       let content
@@ -40,6 +41,7 @@ export default (props) => {
         }
       })
       chain.run()
+      */
     }
 
     props.editor.on('update', handler)
