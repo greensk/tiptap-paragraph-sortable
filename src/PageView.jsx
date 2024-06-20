@@ -35,7 +35,8 @@ export default (props) => {
             }
           }}
         >
-          { headerEditing ? <TiptapNested
+          <TiptapNested
+            editable={ headerEditing }
             content={ content }
             updateContent={ (content) => {
               props.editor.state.doc.descendants((node, pos) => {
@@ -51,7 +52,7 @@ export default (props) => {
             editingDone={() => {
               setHeaderEditing(false)
             }}
-          /> : <div dangerouslySetInnerHTML={ { __html: headerHTML } }></div> }
+          />
         </div>
         <NodeViewContent as="div"></NodeViewContent>
       </div>

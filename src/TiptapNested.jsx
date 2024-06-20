@@ -3,20 +3,24 @@ import StarterKit from "@tiptap/starter-kit"
 import NestedDocument from './NestedDocument'
 
 const TiptapNested = (props) => {
-  console.log(`editable ${props.editable}`)
   const editor = useEditor({
     extensions: [StarterKit.configure({ document: false }), NestedDocument],
     content: props.content,
-    editable: props.editable,
+    editable: false,
     onUpdate ({ editor }) {
       props.updateContent(editor.getJSON().content)
     },
     onBlur () {
-      props.editingDone()
+      editor.setEditable(false)
     }
   })
 
-  return <EditorContent editor={editor} />
+  return <EditorContent
+    editor={editor}
+    onClick={ () => {
+      editor.setEditable(true)
+    } }
+  />
 };
 
 export default TiptapNested
