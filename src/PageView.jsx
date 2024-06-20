@@ -1,18 +1,28 @@
 import { NodeViewWrapper, NodeViewContent } from '@tiptap/react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TiptapNested from './TiptapNested'
 
 import './PageView.css'
 
 export default (props) => {
   const [ headerEditing, setHeaderEditing ] = useState(false)
+  const [ headerHTML, setHeaderHTML ] = useState(document.querySelector('.header').innerHTML)
   let content = {}
-  let headerHTML = document.querySelector('.header').innerHTML
+  const updateContent = () => {
+    setHeaderHTML(document.querySelector('.header').innerHTML)
+  }
   props.editor.state.doc.descendants((node) => {
     if (node.type.name === 'header') {
       content = node.toJSON()
     }
   })
+
+  useEffect(() => {
+    props.editor.on('update', updateContent)
+    return () => {
+      props.editor.off('update', updateContent)
+    }
+  }, [props.editor])
   return (
     <NodeViewWrapper className="page-view" as="div">
       <div>
