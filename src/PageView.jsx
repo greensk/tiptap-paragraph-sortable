@@ -7,6 +7,7 @@ import './PageView.css'
 export default (props) => {
   const [ headerEditing, setHeaderEditing ] = useState(false)
   let content = {}
+  let headerHTML = document.querySelector('.header').innerHTML
   props.editor.state.doc.descendants((node) => {
     if (node.type.name === 'header') {
       content = node.toJSON()
@@ -24,8 +25,7 @@ export default (props) => {
             }
           }}
         >
-          <TiptapNested
-            editable={ headerEditing }
+          { headerEditing ? <TiptapNested
             content={ content }
             updateContent={ (content) => {
               props.editor.state.doc.descendants((node, pos) => {
@@ -39,9 +39,9 @@ export default (props) => {
               })
             } }
             editingDone={() => {
-              //setHeaderEditing(false)
+              setHeaderEditing(false)
             }}
-          />
+          /> : <div dangerouslySetInnerHTML={ { __html: headerHTML } }></div> }
         </div>
         <NodeViewContent as="div"></NodeViewContent>
       </div>
