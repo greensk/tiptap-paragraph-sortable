@@ -6,16 +6,20 @@ import './PageView.css'
 
 export default (props) => {
   const [ headerEditing, setHeaderEditing ] = useState(false)
-  const [ headerHTML, setHeaderHTML ] = useState(document.querySelector('.header').innerHTML)
-  let content = {}
+  let [content, setContent] = useState()
+  // const [updateIndex, setUpdateIndex] = useState(0)
   const updateContent = () => {
-    setHeaderHTML(document.querySelector('.header').innerHTML)
+    props.editor.state.doc.descendants((node) => {
+      if (node.type.name === 'header' && !headerEditing) {
+        const json = node.toJSON()
+        if (json && JSON.stringify(json) !== JSON.stringify(content)) {
+          setContent(json)
+          console.log('CHANGE CONTENT', content)
+        }
+      }
+    })
   }
-  props.editor.state.doc.descendants((node) => {
-    if (node.type.name === 'header') {
-      content = node.toJSON()
-    }
-  })
+  updateContent()
 
   useEffect(() => {
     props.editor.on('update', updateContent)
@@ -28,15 +32,9 @@ export default (props) => {
       <div>
         <div
           contentEditable={ false }
-          onClick={() => {
-            console.log('start editing')
-            if (!headerEditing) {
-              setHeaderEditing(true)
-            }
-          }}
         >
           <TiptapNested
-            editable={ headerEditing }
+            setEditable={ setHeaderEditing }
             content={ content }
             updateContent={ (content) => {
               props.editor.state.doc.descendants((node, pos) => {
