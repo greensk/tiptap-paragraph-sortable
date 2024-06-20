@@ -8,7 +8,7 @@ export default Node.create({
     };
   },
   group: "block",
-  content: "block+",
+  content: "block*",
   renderHTML({ node, HTMLAttributes }) {
     return [
       'div',
